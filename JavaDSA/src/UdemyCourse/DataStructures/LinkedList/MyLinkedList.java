@@ -1,18 +1,19 @@
 package UdemyCourse.DataStructures.LinkedList;
 
-import java.util.LinkedList;
-
 public class MyLinkedList {
     private Node head;
     private Node tail;
     private int length;
-    //test commit
 
     public MyLinkedList(int val){
         Node node = new Node(val);
         head = node;
         tail = node;
         length = 1;
+    }
+
+    public MyLinkedList(){
+
     }
 
     public int getHead() {
@@ -106,12 +107,90 @@ public class MyLinkedList {
         return node;
     }
 
+    public boolean setNode(int index, int value){
+        Node node = getNode(index);
+        if(node == null){
+            return false;
+        }
+        node.val = value;
+        return true;
+    }
+
+    public boolean insert(int index, int val){
+        if(index < 0 || index > length + 1){
+            return false;
+        }
+        if(index == 0){
+            prepend(val);
+            return true;
+        }
+
+        if(index == length){
+            append(val);
+            return true;
+        }
+        Node prevNode = getNode(index - 1);
+        if(prevNode == null){
+            return false;
+        }
+        Node node = new Node(val);
+        node.next = prevNode.next;
+        prevNode.next = node;
+        length++;
+        return true;
+    }
+
+    public Node remove(int index){
+        if(index < 0 || index > length){
+            return null;
+        }
+        Node temp;
+        if (index == 0){
+            return removeFirst();
+        } else if (index == length - 1){
+            return removeLast();
+        } else {
+            Node node = getNode(index - 1);
+            temp = node.next;
+            node.next = node.next.next;
+        }
+        length--;
+        return temp;
+    }
+
     public void printList() {
         Node node = head;
         while (node != null){
             System.out.print(node.val + " ");
             node = node.next;
         }
+    }
+
+    public void reverse() {
+        Node temp = head;
+        head = tail;
+        tail = temp;
+        Node before = null;
+        Node after;
+
+        for(int i = 0; i < length; i++){
+            after = temp.next;
+            temp.next = before;
+            before = temp;
+            temp = after;
+        }
+    }
+
+    public Node findMiddleElement(){
+        Node slow = head;
+        Node fast = head;
+        int len = 0;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            len += 2;
+        }
+        return slow;
     }
 
     class Node {
