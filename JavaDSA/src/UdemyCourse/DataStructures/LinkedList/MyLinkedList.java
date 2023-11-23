@@ -211,6 +211,7 @@ public class MyLinkedList {
         return false;
     }
 
+    //we move fast k steps ahead so when k will be null the slow node will pe pointing to len - k node on lis
     public Node findKthFromEnd(int k){
         if(k == 0){
             return tail;
@@ -259,6 +260,21 @@ public class MyLinkedList {
 
     public void removeDublicates(){
 
+        Node fast = head;
+        Node slow = head;
+
+        for(int i = 0; i < k; i++){
+            if(fast == null){
+                return null;
+            }
+            fast = fast.next;
+        }
+
+        while(fast != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
     }
 
     class Node {
