@@ -232,34 +232,79 @@ public class MyLinkedList {
     }
 
     public void partitionList(int x){
+        /*I need to rearrange the list so all the elements :
+          * smaller than x will be on the left side and all the elements
+          * greater or equal to x on the right side
+          * */
+
+        //check if the list is empty
         if(head == null){
             return;
         }
 
-        Node dummy1 = new Node(0);
-        Node dummy2 = new Node(0);
-        Node prev1 = dummy1;
-        Node prev2 = dummy2;
-        Node curent = head;
-
-        while (curent != null){
-            if(curent.val < x){
-                prev1.next = curent;
-                prev1 = curent;
-            } else {
-                prev2.next = curent;
-                prev2 = curent;
+        Node current = head;
+        Node newNode = new Node(0);
+        Node prev = newNode;
+        while (current != null){
+            if(current.val >= x){
+                current = current.next;
+            } else if(current.val < x){
+                current = current.next;
             }
-            curent = curent.next;
         }
-        prev2.next = null;
-        prev1.next = dummy2.next;
+    }
 
-        head = dummy1.next;
+    public int binaryToDecimal(){
+        if(head == null){
+            return 0;
+        }
+        int num = 0;
+        Node current = head;
+
+        while (current != null){
+            if(current.val == 0){
+                num++;
+            } else {
+                num = num * 2 + current.val;
+            }
+            current = current.next;
+        }
+        return num;
     }
 
     public void removeDublicates(){
+        if(head == null){
+            return;
+        }
 
+        /*create a node that points to curent value
+        * NOTE IT:
+        * I start from head.next this means automatically my head is added in set and I start to check from head.next
+        * When this algortihm finds a value that is in this set data structure I move the prev.next to curent that next
+        * SO IF I FIND SOMETHING LIKE THAT
+        * 1 -> 2 -> 2 -> 3 -> 4
+        * set.add(1), set.add(2)
+        * when I find the second 2 the linked list will become
+        * 1 -> 2 -> 3
+        *       \
+        *        2 -> this 2 is removed as neighbour
+        * */
+
+        Node current = head.next;
+        Node prev = head;
+        Set<Integer> nodesSet = new HashSet<>();
+        nodesSet.add(prev.val);
+        while (current != null){
+            if(nodesSet.contains(current.val)){
+                prev.next = current.next;
+                current = current.next;
+                length--;
+            } else {
+                nodesSet.add(current.val);
+                prev = prev.next;
+                current = current.next;
+            }
+        }
     }
 
     class Node {
