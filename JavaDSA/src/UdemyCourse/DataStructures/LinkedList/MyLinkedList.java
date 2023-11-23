@@ -1,5 +1,8 @@
 package UdemyCourse.DataStructures.LinkedList;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MyLinkedList {
     private Node head;
     private Node tail;
@@ -164,6 +167,7 @@ public class MyLinkedList {
             System.out.print(node.val + " ");
             node = node.next;
         }
+        System.out.println();
     }
 
     public void reverse() {
@@ -211,6 +215,49 @@ public class MyLinkedList {
         if(k == 0){
             return tail;
         }
+        Node fast = head;
+        for(int i = 0; i < k; i++){
+            if(fast == null){
+                return null;
+            }
+            fast = fast.next;
+        }
+        Node slow = head;
+        while (fast != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+
+    public void partitionList(int x){
+        if(head == null){
+            return;
+        }
+
+        Node dummy1 = new Node(0);
+        Node dummy2 = new Node(0);
+        Node prev1 = dummy1;
+        Node prev2 = dummy2;
+        Node curent = head;
+
+        while (curent != null){
+            if(curent.val < x){
+                prev1.next = curent;
+                prev1 = curent;
+            } else {
+                prev2.next = curent;
+                prev2 = curent;
+            }
+            curent = curent.next;
+        }
+        prev2.next = null;
+        prev1.next = dummy2.next;
+
+        head = dummy1.next;
+    }
+
+    public void removeDublicates(){
 
     }
 

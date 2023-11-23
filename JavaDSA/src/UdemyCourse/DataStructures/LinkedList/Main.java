@@ -1,13 +1,21 @@
 package UdemyCourse.DataStructures.LinkedList;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         MyLinkedList linkedList = new MyLinkedList();
-        for (int i = 0; i < 6; i++){
-            linkedList.insert(i, i);
-        }
+        linkedList.prepend(1);
+        linkedList.prepend(2);
+        linkedList.prepend(2);
+        linkedList.prepend(2);
+        linkedList.prepend(3);
+        linkedList.prepend(4);
+        linkedList.prepend(4);
+
         linkedList.printList();
-        System.out.println();
-        System.out.println(linkedList.findMiddleElement().val);
+        linkedList.removeDublicates();
+        linkedList.printList();
     }
+
 }
