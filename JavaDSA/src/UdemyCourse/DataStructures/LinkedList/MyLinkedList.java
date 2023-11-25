@@ -239,19 +239,30 @@ public class MyLinkedList {
 
         //check if the list is empty
         if(head == null){
+            System.out.println("List is empty.");
             return;
         }
 
         Node current = head;
-        Node newNode = new Node(0);
-        Node prev = newNode;
+        Node dummy1 = new Node(0);
+        Node dummy2 = new Node(0);
+        Node prev1 = dummy1;
+        Node prev2 = dummy2;
+
         while (current != null){
-            if(current.val >= x){
-                current = current.next;
-            } else if(current.val < x){
-                current = current.next;
+            if (current.val < x){
+                prev1.next = current;
+                prev1 = current;
+            } else {
+                prev2.next = current;
+                prev2 = current;
             }
+            current = current.next;
         }
+
+        prev2.next = null;
+        prev1.next = dummy2.next;
+        head = dummy1.next;
     }
 
     public int binaryToDecimal(){
@@ -304,6 +315,30 @@ public class MyLinkedList {
                 prev = prev.next;
                 current = current.next;
             }
+        }
+    }
+
+    public void reverseBetween(int start, int end){
+        if(head == null){
+            System.out.println("Empty List");
+            return;
+        }
+
+        Node current = head;
+        Node prev = head;
+        for (int i = 0; i < start; i++) {
+            if(i < start - 1){
+                prev = prev.next;
+            }
+            current = current.next;
+        }
+        Node temp;
+        for (int i = 0; i < end - start; i++) {
+            System.out.println(i);
+            temp = current.next;
+            current.next = temp.next;
+            temp.next = prev.next;
+            prev.next = temp;
         }
     }
 
