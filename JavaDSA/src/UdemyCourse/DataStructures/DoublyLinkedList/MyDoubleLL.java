@@ -183,6 +183,22 @@ public class MyDoubleLL {
         System.out.println();
     }
 
+    public void swapFirstLast(){
+        System.out.println("Swap head - tail");
+        if (length <= 1){
+            return;
+        }
+        int hV = head.val;
+        int tV = tail.val;
+
+        head.val = tV;
+        tail.val = hV;
+    }
+
+    public void reverse(){
+        System.out.println("Reverse");
+    }
+
     class Node{
         int val;
         Node prev;

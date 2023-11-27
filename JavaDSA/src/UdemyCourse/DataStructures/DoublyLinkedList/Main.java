@@ -10,16 +10,9 @@ public class Main {
             dll.append(random.nextInt(20));
         }
         dll.printList();
-
-        System.out.println(dll.getNode(5).val);
-        dll.setNode(4, 90);
+        dll.swapFirstLast();
         dll.printList();
-
-        dll.insertNode(9, 930);
+        dll.reverse();
         dll.printList();
-
-        dll.deleteNode(3);
-        dll.printList();
-
     }
 }
